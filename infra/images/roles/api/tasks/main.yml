@@ -1,0 +1,25 @@
+- name: Prepare venv for app
+  pip:
+    virtualenv_python: /usr/bin/python3
+    virtualenv: /root/venv
+    name: "{{ item }}"
+  with_items: 
+    - Flask
+    - gunicorn
+    - cassandra-driver
+
+- name: Add app config 
+  copy:
+    src: app
+    dest: /etc/nginx/sites-available/app
+
+- name: Overwrite default for metricbeat sake
+  copy:
+    src: default
+    dest: /etc/nginx/sites-available/default
+
+- name: Link for nginx
+  file:
+    state: link
+    src: /etc/nginx/sites-available/app
+    dest: /etc/nginx/sites-enabled/app 

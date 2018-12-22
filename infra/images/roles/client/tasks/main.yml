@@ -1,0 +1,29 @@
+- name: Expand virtualenv
+  pip:
+    virtualenv_python: /usr/bin/python3
+    virtualenv: /root/venv
+    name: "{{ item }}"
+  with_items:
+    - kiwisolver
+    - matplotlib
+    - numpy
+    - pyparsing
+    - requests
+    - urllib3
+
+- name: Prepare nginx 
+  copy:
+    dest: /etc/nginx/nginx.conf
+    src: nginx.conf
+
+- name: Prepare space for tar
+  file:
+   owner: www-data
+   path: /tmp/out/
+   state: directory
+
+- name: Add remote exec script
+  copy:
+    src: remote_exec.sh
+    dest: /root/remote_exec.sh
+    mode: 0777

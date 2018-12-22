@@ -1,0 +1,7 @@
+*/__pycache__
+__pycache__
+db_interfaces/connection_config.yml
+terrorist.yml
+config.yml
+*.csv
+*.tar.gz*

@@ -1,0 +1,17 @@
+API_ENDPOINT: ADDRESS
+db:
+  connection:
+    address:
+      - DB_ADDRESS
+    port: 9042
+  keyspace:
+    name: production
+    factor: 1
+threads: THREADS
+preheat_db: 10000
+operations:
+  create: 100
+  delete: 10
+  update: 10
+  full_read: 10
+  targeted_read: 10

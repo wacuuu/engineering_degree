@@ -1,0 +1,21 @@
+- name: Key for cassandra
+  apt_key:
+    url: https://www.apache.org/dist/cassandra/KEYS
+    state: present
+
+- name: Add repo for cassandra
+  apt_repository:
+   repo: "deb http://www.apache.org/dist/cassandra/debian 311x main"
+   state: "present"
+   update_cache: "true"
+
+- name: Install cassandra
+  action: >
+    {{ ansible_pkg_mgr }} name={{ item }} state=present
+  with_items: 
+    - cassandra
+
+- name: Deploy cassandra config
+  copy:
+    dest: /etc/cassandra/cassandra.yaml
+    src: cassandra.yaml

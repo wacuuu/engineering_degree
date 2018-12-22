@@ -1,0 +1,38 @@
+---
+- name: Get es
+  get_url:
+    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.2.deb
+    dest: /tmp/elasticsearch.deb
+    checksum: sha256:4ca2cc982db8e46743a98e2c3d678e60c24331b28f79ea424bb8a323e611f678
+
+- name: Install elasticsearch
+  apt:
+    deb: /tmp/elasticsearch.deb
+
+- name: get kb
+  get_url:
+    url: https://artifacts.elastic.co/downloads/kibana/kibana-6.4.2-amd64.deb
+    dest: /tmp/kibana.deb
+    checksum: sha256:63c6e76c30b692a1a9182dbbde593796398094d3904f16239dcb182a2455f0d2
+
+- name: Install kibana
+  apt:
+    deb: /tmp/kibana.deb
+
+- name: Deploy configs
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: 
+    - {"src": "elasticsearch.yml", "dest": "/etc/elasticsearch/elasticsearch.yml"}
+    - {"src": "kibana.yml", "dest": "/etc/kibana/kibana.yml"}
+    - {"src": "runner", "dest": "/etc/cron.d/runner"}
+
+- name: Prepare venv for app
+  pip:
+    virtualenv_python: /usr/bin/python3
+    virtualenv: /root/venv
+    name: "{{ item }}"
+  with_items: 
+    - python-digitalocean
+    - paramiko

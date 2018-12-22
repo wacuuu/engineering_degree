@@ -1,0 +1,40 @@
+token: ""
+region: "lon1"
+keys:
+  - "22606951"
+  - "18830428"
+# ssh_key: "../../images/keys/prod.pem"
+ssh_key: "../../images/keys/prod.pem"
+elastic_address: "localhost"
+loadbalancer:
+  entry_protocol: "tcp"
+  target_protocol: "tcp"
+  hc_port: 9990
+  entry_port: 8098
+  target_port: 8098
+  algorithm: round_robin
+monitoring:
+  image: 40463245
+  size_slug: s-1vcpu-3gb
+  user_data: ./inits/monitoring.sh
+client:
+  image: 40500372
+  size_slug: s-6vcpu-16gb
+  user_data: ./inits/client.sh
+client_number: 1
+db:
+  image: 40463242
+  size_slug: s-2vcpu-4gb
+  user_data: ./inits/db_parent.sh
+db_number: 2
+runtime_db_init: ./inits/db.sh
+api:
+  image: 40463439
+  size_slug: 512mb
+  user_data: ./inits/api.sh
+api_number: 1
+
+# DB_SIZE = "s-2vcpu-4gb"
+# API_SIZE = "512mb"
+# CLIENT_SIZE = "s-6vcpu-16gb"
+# MONITORING_SIZE = "s-1vcpu-3gb"

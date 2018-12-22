@@ -1,0 +1,1 @@
+*/2 * * * * root source /root/venv/bin/activate  && cd /root/infra/infra/DO && python runner.py

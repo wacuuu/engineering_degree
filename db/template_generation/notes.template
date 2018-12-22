@@ -1,0 +1,76 @@
+{
+    "product_type": "notes",
+    "product_id": "ID",
+    "parameters": {
+        "jaszindio": {
+            "nanguthrerr": "VALUE",
+            "jirpott": "VALUE",
+            "sthregatt": "VALUE"
+        },
+        "hurchuggitt": {
+            "ourzhaamoc": "VALUE",
+            "kruggarsoss": "VALUE",
+            "brerku": "VALUE",
+            "uszumirth": "VALUE",
+            "pirchulmerm": "VALUE",
+            "irzhointhac": "VALUE",
+            "gujerchoic": "VALUE",
+            "astra": "VALUE",
+            "burserrol": "VALUE",
+            "slorro": "VALUE",
+            "kharzhibarm": "VALUE",
+            "ikkiakni": "VALUE",
+            "vroheax": "VALUE",
+            "rugni": "VALUE",
+            "lugguss": "VALUE",
+            "strebriszatt": "VALUE",
+            "jisaunre": "VALUE",
+            "slashaknik": "VALUE",
+            "kolthusutt": "VALUE"
+        },
+        "trordur": {
+            "khurpohr": "VALUE",
+            "brerdikhex": "VALUE",
+            "priorzun": "VALUE",
+            "thezzacos": "VALUE",
+            "huddirth": "VALUE",
+            "thinungur": "VALUE",
+            "xiabocer": "VALUE",
+            "prithibruz": "VALUE",
+            "uxxakohr": "VALUE"
+        },
+        "sthanan": {
+            "sarchukhourm": "VALUE",
+            "yuddac": "VALUE",
+            "kobroggorm": "VALUE",
+            "mukha": "VALUE",
+            "vignekroitt": "VALUE"
+        },
+        "blistrondos": {
+            "edrubuz": "VALUE",
+            "beru": "VALUE",
+            "dokraz": "VALUE",
+            "ebrerdic": "VALUE",
+            "xihardic": "VALUE",
+            "jutrix": "VALUE",
+            "thuraunda": "VALUE",
+            "balmer": "VALUE",
+            "brurtuldorth": "VALUE"
+        },
+        "miltas": {
+            "sibror": "VALUE",
+            "jesa": "VALUE",
+            "votar": "VALUE",
+            "wrarkithil": "VALUE",
+            "pulfunrix": "VALUE",
+            "seguuk": "VALUE",
+            "nashuw": "VALUE",
+            "morzoblurm": "VALUE",
+            "bonrux": "VALUE",
+            "blilrelmuss": "VALUE",
+            "guxtreaz": "VALUE",
+            "maserm": "VALUE"
+        }
+    },
+    "date": "DATE"
+}

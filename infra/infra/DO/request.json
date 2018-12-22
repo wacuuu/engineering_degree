@@ -1,0 +1,35 @@
+{
+  "from" : 0,
+  "size" : 10000,
+  "_source": ["system.cpu.total.pct", "system.network.*.bytes", "@timestamp", "metricset.name"],
+  "query": {
+    "bool":{
+      "must": [
+        { "range" : {
+            "@timestamp" : {
+              "gte" : "now-2m",
+              "lt" :  "now"
+            }
+          }
+        },
+        { "wildcard": {
+                "host.name":  "*"
+          }
+        },
+        { "bool" : {
+            "should": [
+            { "wildcard": {
+                "system.network.name":  "eth0"
+              }
+            },
+            { "wildcard": {
+                "metricset.name":  "cpu"
+              }
+            }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

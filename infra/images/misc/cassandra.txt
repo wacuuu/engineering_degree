@@ -1,0 +1,150 @@
+linia 425
+
+
+seeds na własny i przynajmniej 1 inny
+listen_address na własny
+start_rpc: true
+rpc_address: 0.0.0.0
+broadcast_rpc_address: 192.168.1.132 też własny
+jeszcze auto_bootstrap na true
+
+- seeds: "SEEDS"
+listen_address: LISTEN_ADDRESS
+broadcast_rpc_address: BROADCAST_RPC_ADDRESS
+
+ifconfig eth0 |grep -E 'inet '|awk '{print $2}'
+
+
+
+
+
+
+seed_provider:
+    # Addresses of hosts that are deemed contact points. 
+    # Cassandra nodes use this list of hosts to find each other and learn
+    # the topology of the ring.  You must change this if you are running
+    # multiple nodes!
+    - class_name: org.apache.cassandra.locator.SimpleSeedProvider
+      parameters:
+          # seeds is actually a comma-delimited list of addresses.
+          # Ex: "<ip1>,<ip2>,<ip3>"
+          - seeds: "127.0.0.1"
+
+
+# For workloads with more data than can fit in memory, Cassandra's
+# bottleneck will be reads that need to fetch data from
+# disk. "concurrent_reads" should be set to (16 * number_of_drives) in
+# order to allow the operations to enqueue low enough in the stack
+# that the OS and drives can reorder them. Same applies to
+# "concurrent_counter_writes", since counter writes read the current
+# values before incrementing and writing them back.
+#
+# On the other hand, since writes are almost never IO bound, the ideal
+# number of "concurrent_writes" is dependent on the number of cores in
+# your system; (8 * number_of_cores) is a good rule of thumb.
+concurrent_reads: 32
+concurrent_writes: 32
+concurrent_counter_writes: 32
+# For materialized view writes, as there is a read involved, so this should
+# be limited by the less of concurrent reads or concurrent writes.
+concurrent_materialized_view_writes: 32
+
+# Maximum memory to use for sstable chunk cache and buffer pooling.
+# 32MB of this are reserved for pooling buffers, the rest is used as an
+# cache that holds uncompressed sstable chunks.
+# Defaults to the smaller of 1/4 of heap or 512MB. This pool is allocated off-heap,
+# so is in addition to the memory allocated for heap. The cache also has on-heap
+# overhead which is roughly 128 bytes per chunk (i.e. 0.2% of the reserved size
+# if the default 64k chunk size is used).
+# Memory is only allocated when needed.
+# file_cache_size_in_mb: 512
+
+# Flag indicating whether to allocate on or off heap when the sstable buffer
+# pool is exhausted, that is when it has exceeded the maximum memory
+# file_cache_size_in_mb, beyond which it will not cache buffers but allocate on request.
+
+# buffer_pool_use_heap_if_exhausted: true
+
+# The strategy for optimizing disk read
+# Possible values are:
+# ssd (for solid state disks, the default)
+# spinning (for spinning disks)
+# disk_optimization_strategy: ssd
+
+# Total permitted memory to use for memtables. Cassandra will stop
+# accepting writes when the limit is exceeded until a flush completes,
+# and will trigger a flush based on memtable_cleanup_threshold
+# If omitted, Cassandra will set both to 1/4 the size of the heap.
+# memtable_heap_space_in_mb: 2048
+# memtable_offheap_space_in_mb: 2048
+
+# memtable_cleanup_threshold is deprecated. The default calculation
+# is the only reasonable choice. See the comments on  memtable_flush_writers
+# for more information.
+#
+# Ratio of occupied non-flushing memtable size to total permitted size
+# that will trigger a flush of the largest memtable. Larger mct will
+# mean larger flushes and hence less compaction, but also less concurrent
+# flush activity which can make it difficult to keep your disks fed
+# under heavy write load.
+#
+# memtable_cleanup_threshold defaults to 1 / (memtable_flush_writers + 1)
+# memtable_cleanup_threshold: 0.11
+
+
+linia 587
+# Address or interface to bind to and tell other Cassandra nodes to connect to.
+# You _must_ change this if you want multiple nodes to be able to communicate!
+#
+# Set listen_address OR listen_interface, not both.
+#
+# Leaving it blank leaves it up to InetAddress.getLocalHost(). This
+# will always do the Right Thing _if_ the node is properly configured
+# (hostname, name resolution, etc), and the Right Thing is to use the
+# address associated with the hostname (it might not be).
+#
+# Setting listen_address to 0.0.0.0 is always wrong.
+#
+listen_address: localhost
+
+# Set listen_address OR listen_interface, not both. Interfaces must correspond
+# to a single address, IP aliasing is not supported.
+# listen_interface: eth0
+
+
+linia 661
+# Whether to start the thrift rpc server.
+start_rpc: true
+
+# The address or interface to bind the Thrift RPC service and native transport
+# server to.
+#
+# Set rpc_address OR rpc_interface, not both.
+#
+# Leaving rpc_address blank has the same effect as on listen_address
+# (i.e. it will be based on the configured hostname of the node).
+#
+# Note that unlike listen_address, you can specify 0.0.0.0, but you must also
+# set broadcast_rpc_address to a value other than 0.0.0.0.
+#
+# For security reasons, you should not expose this port to the internet.  Firewall it if needed.
+rpc_address: 0.0.0.0
+
+# Set rpc_address OR rpc_interface, not both. Interfaces must correspond
+# to a single address, IP aliasing is not supported.
+# rpc_interface: eth1
+
+# If you choose to specify the interface by name and the interface has an ipv4 and an ipv6 address
+# you can specify which should be chosen using rpc_interface_prefer_ipv6. If false the first ipv4
+# address will be used. If true the first ipv6 address will be used. Defaults to false preferring
+# ipv4. If there is only one address it will be selected regardless of ipv4/ipv6.
+# rpc_interface_prefer_ipv6: false
+
+# port for Thrift to listen for clients on
+rpc_port: 9160
+
+# RPC address to broadcast to drivers and other Cassandra nodes. This cannot
+# be set to 0.0.0.0. If left blank, this will be set to the value of
+# rpc_address. If rpc_address is set to 0.0.0.0, broadcast_rpc_address must
+# be set.
+broadcast_rpc_address: 192.168.1.132

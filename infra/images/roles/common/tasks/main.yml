@@ -1,0 +1,111 @@
+---
+- name: Update packages
+  apt:
+    name: "*"
+    state: latest
+    force_apt_get: True
+
+
+- name: Install importnant packages
+  action: >
+    {{ ansible_pkg_mgr }} name={{ packages }} state=present
+  vars:
+  - packages:
+    - vim
+    - git
+    - htop
+    - virtualenv
+    - python3-pip
+    - tree
+    - nginx
+    - postfix
+
+- name: Install java
+  action: >
+    {{ ansible_pkg_mgr }} name=default-jre state=present
+  when: service != "db"
+
+
+- name: Prepare venv for app
+  pip:
+    virtualenv_python: /usr/bin/python3
+    virtualenv: /root/venv
+    name: "{{ item }}"
+  with_items:
+    - certifi
+    - chardet
+    - cycler
+    - idna
+    - MarkupSafe
+    - pyparsing
+    - python-dateutil
+    - pytz
+    - PyYAML
+
+- name: Deploy files
+  copy:
+    dest: "{{ item.path }}"
+    src: "{{ item.src }}"
+    mode: "{{ item.mode | default('0777') }}"
+  with_items:
+    - {"path": "/root/.ssh/id_rsa", "src": "id_rsa", "mode": "0400"}
+    - {"path": "/root/.ssh/id_rsa.pub", "src": "id_rsa.pub", "mode": "0400"}
+    - {"path": "/root/.ssh/authorized_keys", "src": "id_rsa.pub", "mode": "0400"}
+    - {"path": "/root/.ssh/config", "src": "config", "mode": "0400"}
+    - {"path": "/root/publisher.py", "src": "publisher.py"}
+    - {"path": "/etc/credentials", "src": "credentials"}
+    - {"path": "/etc/postfix/main.cf", "src": "main.cf"}
+
+- name: Download doctl
+  get_url:
+    url: https://github.com/digitalocean/doctl/releases/download/v1.10.0/doctl-1.10.0-linux-amd64.tar.gz
+    dest: /tmp/doctl.tar.gz
+    checksum: sha256:f83c961690dbcc1b8ef5220caf7d0d64e43e4cfa59c4d7441768ceaf0b429a4d
+
+- name: Unpack doctl
+  unarchive:
+    src: /tmp/doctl.tar.gz
+    dest: /usr/bin
+    mode: 0777
+
+- name: Cleanup to be sure
+  file:
+    path: /tmp/doctl.tar.gz
+    state: absent
+
+- name: Download metricbeat
+  get_url:
+    checksum: sha256:913a13f9cf59d0339c6152769a8a5838186986615ff2c6dae45132e123f71406
+    url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-6.4.2-amd64.deb
+    dest: /tmp/metricbeat.deb
+
+- name: Install metricbeat
+  apt:
+    deb: /tmp/metricbeat.deb
+
+- name: Include config for metricbeat
+  copy:
+    src: metricbeat.yml
+    dest: /etc/metricbeat/metricbeat.yml
+
+- name: Get gcloud
+  get_url:
+    checksum: sha256:aca4f18e3ccd8dd24482fdc41e4d1c0c10c0192eb9d3c262f3d9ac870ee79419
+    url: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-223.0.0-linux-x86_64.tar.gz
+    dest: /tmp/gcloud.tar.gz
+
+- name: Dir
+  file:
+    dest: /tmp/gcloud
+    state: directory
+
+
+- name: Unpack gcloud
+  unarchive:
+    dest: /tmp/gcloud
+    src: /tmp/gcloud.tar.gz
+    list_files: yes
+    remote_src: yes
+
+- name: Install gcloud
+  command: /tmp/gcloud/google-cloud-sdk/install.sh

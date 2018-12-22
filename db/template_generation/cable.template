@@ -1,0 +1,42 @@
+{
+    "product_type": "cable",
+    "product_id": "ID",
+    "parameters": {
+        "ebrerdic": {
+            "morzoblurm": "VALUE",
+            "wrarkithil": "VALUE",
+            "bonrux": "VALUE",
+            "seguuk": "VALUE",
+            "nashuw": "VALUE",
+            "miltas": "VALUE",
+            "maserm": "VALUE"
+        },
+        "blistrondos": {
+            "edrubuz": "VALUE",
+            "beru": "VALUE",
+            "dokraz": "VALUE",
+            "xihardic": "VALUE",
+            "jutrix": "VALUE",
+            "thuraunda": "VALUE",
+            "balmer": "VALUE",
+            "brurtuldorth": "VALUE"
+        },
+        "pulfunrix": {
+            "jirpott": "VALUE",
+            "jesa": "VALUE",
+            "votar": "VALUE",
+            "vignekroitt": "VALUE",
+            "sibror": "VALUE",
+            "sarchukhourm": "VALUE",
+            "yuddac": "VALUE",
+            "sthanan": "VALUE",
+            "jaszindio": "VALUE",
+            "nanguthrerr": "VALUE",
+            "blilrelmuss": "VALUE",
+            "sthregatt": "VALUE",
+            "guxtreaz": "VALUE",
+            "mukha": "VALUE"
+        }
+    },
+    "date": "DATE"
+}

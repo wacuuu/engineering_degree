@@ -1,0 +1,3 @@
+*.sh    filter=permissions
+*.pem    filter=permissions2
+

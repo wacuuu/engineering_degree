@@ -1,0 +1,52 @@
+{
+    "variables" :{
+        "service": "monitoring"
+    },
+	"provisioners": [{
+  		"type": "shell",
+  		"inline": [
+        "sudo apt-get update; sudo apt-get -y install software-properties-common; sudo apt-add-repository -y ppa:ansible/ansible; sudo apt-get update; sudo apt-get -y install ansible; while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 5; done"
+  		],
+      "only": ["GCP"]
+	},
+  {
+      "type": "shell",
+      "inline": [
+      "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 5; done"],
+      "only": ["DO"]
+  },
+	{
+      "type": "ansible-local",
+      "playbook_file": "playbooks/{{user `service`}}.yml",
+      "role_paths": [
+        "roles/{{user `service`}}/",
+        "roles/common/"
+        ],
+      "extra_arguments": ["--extra-vars \"service={{user `service`}}\""]
+    }],
+	"builders":[{
+      "name": "DO",
+	  "type": "digitalocean",
+	  "api_token": "",
+	  "image": "ubuntu-18-04-x64",
+	  "region": "lon1",
+	  "size": "512mb",
+	  "ssh_username": "root",
+	  "snapshot_name": "packer-{{user `service`}}-{{timestamp}}",
+	  "user_data_file": "init.sh"
+	},
+    {
+        "name": "GCP",
+        "type": "googlecompute",
+        "account_file": "account.json",
+        "project_id": "concise-foundry-220411",
+        "source_image": "ubuntu-1804-bionic-v20181024",
+        "ssh_username": "root",
+        "zone": "europe-west1-b",
+        "preemptible": true,
+        "machine_type": "n1-standard-1",
+        "image_name": "packer-{{user `service`}}-{{timestamp}}"
+    }]
+}
+
+

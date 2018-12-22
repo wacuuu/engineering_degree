@@ -1,0 +1,9 @@
+server {
+    listen 8098;
+    server_name $SERVER_NAME;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/dev/shm/gunicorn;
+    }
+}

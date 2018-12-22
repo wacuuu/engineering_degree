@@ -1,0 +1,12 @@
+{
+    "date": "DATE",
+    "product_id": "ID",
+    "parameters": {
+        "bonrux": {
+            "miltas": "VALUE",
+            "beru": "VALUE",
+            "balmer": "VALUE"
+        }
+    },
+    "product_type": "test"
+}

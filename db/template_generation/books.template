@@ -1,0 +1,63 @@
+{
+    "product_type": "books",
+    "product_id": "ID",
+    "parameters": {
+        "jaszindio": {
+            "hurchuggitt": "VALUE",
+            "ikkiakni": "VALUE",
+            "jisaunre": "VALUE",
+            "vignekroitt": "VALUE",
+            "jirpott": "VALUE",
+            "sarchukhourm": "VALUE",
+            "yuddac": "VALUE",
+            "kobroggorm": "VALUE",
+            "sthanan": "VALUE",
+            "slorro": "VALUE",
+            "strebriszatt": "VALUE",
+            "nanguthrerr": "VALUE",
+            "rugni": "VALUE",
+            "sthregatt": "VALUE",
+            "burserrol": "VALUE",
+            "mukha": "VALUE",
+            "kolthusutt": "VALUE"
+        },
+        "irzhointhac": {
+            "kruggarsoss": "VALUE",
+            "brerku": "VALUE",
+            "pirchulmerm": "VALUE",
+            "lugguss": "VALUE",
+            "astra": "VALUE",
+            "gujerchoic": "VALUE",
+            "slashaknik": "VALUE",
+            "vroheax": "VALUE",
+            "uszumirth": "VALUE"
+        },
+        "blistrondos": {
+            "beru": "VALUE",
+            "jutrix": "VALUE",
+            "xihardic": "VALUE",
+            "seguuk": "VALUE",
+            "thuraunda": "VALUE",
+            "nashuw": "VALUE",
+            "brurtuldorth": "VALUE",
+            "edrubuz": "VALUE",
+            "dokraz": "VALUE",
+            "morzoblurm": "VALUE",
+            "ebrerdic": "VALUE",
+            "balmer": "VALUE",
+            "miltas": "VALUE"
+        },
+        "pulfunrix": {
+            "sibror": "VALUE",
+            "jesa": "VALUE",
+            "votar": "VALUE",
+            "guxtreaz": "VALUE",
+            "blilrelmuss": "VALUE"
+        },
+        "wrarkithil": {
+            "bonrux": "VALUE",
+            "maserm": "VALUE"
+        }
+    },
+    "date": "DATE"
+}
